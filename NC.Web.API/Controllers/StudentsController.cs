@@ -67,7 +67,7 @@ namespace NC.Web.API.Controllers
 
         [Route("/api/Students")]
         [HttpPost]
-        public StudentModel Create([FromBody] StudentModel student)
+        public StudentModel Create(StudentModel student)
         {
             try
             {

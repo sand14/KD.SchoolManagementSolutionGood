@@ -1,4 +1,5 @@
 ﻿using KD.WPF.Client.Models;
+using Nancy.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -43,21 +44,14 @@ namespace KD.WPF.Client.APIClient.RestServices
         {
             using (HttpClient client = GetClient())
             {
-                client.BaseAddress = new Uri(serverAddress);
-                var query=new Dictionary<string, StudentModel>();
-               
+                student.FullName = String.Format("{0} {1}", student.FirstName, student.LastName);
+                var request = new StringContent(new JavaScriptSerializer().Serialize(student), Encoding.UTF8, "application/json");
+                File.WriteAllText("TextFile1.txt",await request.ReadAsStringAsync());
 
 
-
-
-                var jsonquery = SerializeObject(student);
-
-                File.WriteAllTextAsync("TextFile1.txt", jsonquery);
-                var result = await client.PostAsJsonAsync("api/Students", student)
-                    .ContinueWith((postTask) => postTask.Result);
-               
-                var payload = DeserializeObject<StudentModel> (result.Content.ReadAsStringAsync().Result);
-                return payload;
+                var response = client.PostAsync($"{serverAddress}/api/Students", new StringContent(
+                    new JavaScriptSerializer().Serialize(student), Encoding.UTF8, "application/json")).Result;
+                return DeserializeObject<StudentModel>(response.Content.ReadAsStringAsync().Result);
             }
         }
 

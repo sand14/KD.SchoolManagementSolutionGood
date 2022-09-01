@@ -40,8 +40,17 @@ namespace KD.WPF.Client.Models
         {
             get { return dateOfBirth; }
             set { SetProperty(ref dateOfBirth, value); }
-        } 
-        
+        }
+
+        private string fullName;
+
+        public string FullName
+        {
+            get { return fullName; }
+            set { SetProperty(ref fullName, value); }
+        }
+
+
         private int identificationNumber;
         public int IdentificationNumber
         {
