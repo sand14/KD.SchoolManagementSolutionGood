@@ -46,7 +46,7 @@ namespace KD.WPF.Client.Models
 
         public string FullName
         {
-            get { return fullName; }
+            get { return $"{FirstName} {LastName}"; }
             set { SetProperty(ref fullName, value); }
         }
 

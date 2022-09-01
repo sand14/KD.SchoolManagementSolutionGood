@@ -44,7 +44,7 @@ namespace KD.WPF.Client.APIClient.RestServices
         {
             using (HttpClient client = GetClient())
             {
-                student.FullName = String.Format("{0} {1}", student.FirstName, student.LastName);
+                //student.FullName = String.Format("{0} {1}", student.FirstName, student.LastName);
                 var request = new StringContent(new JavaScriptSerializer().Serialize(student), Encoding.UTF8, "application/json");
                 File.WriteAllText("TextFile1.txt",await request.ReadAsStringAsync());
 
