@@ -4,6 +4,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
@@ -44,6 +45,10 @@ namespace KD.WPF.Client.APIClient.RestServices
         protected async Task<HttpRequestMessage> PrepareRequestMessageAsync(HttpMethod method, string requestUri)
         {
             var request = new HttpRequestMessage(method, requestUri.Replace(@"//api/", @"/api/"));
+            var username = "username";
+            var password = "password";
+            var encoded = Convert.ToBase64String(Encoding.GetEncoding(0).GetBytes($"{username}:{password}"));
+            request.Headers.Add("Authorization", $"basic {encoded}");
             return request;
         }
 

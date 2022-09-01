@@ -20,6 +20,7 @@ namespace KD.Core.DomainModels
         public virtual DbSet<Specialization> Specializations { get; set; } = null!;
         public virtual DbSet<Student> Students { get; set; } = null!;
         public virtual DbSet<Teacher> Teachers { get; set; } = null!;
+        public virtual DbSet<User> Users { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -32,6 +33,13 @@ namespace KD.Core.DomainModels
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.Property(e => e.UserId).HasDefaultValueSql("(newid())");
+                entity.Property(e => e.Username).HasMaxLength(50);
+                entity.Property(e => e.Password).HasMaxLength(50);
+            });
+
             modelBuilder.Entity<Course>(entity =>
             {
                 entity.Property(e => e.CourseId).HasDefaultValueSql("(newid())");
