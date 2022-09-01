@@ -1,0 +1,10 @@
+﻿<prism:PrismApplication
+    x:Class="KD.WPF.Client.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:KD.WPF.Client"
+    xmlns:prism="http://prismlibrary.com/">
+    <Application.Resources />
+</prism:PrismApplication>
+
+
