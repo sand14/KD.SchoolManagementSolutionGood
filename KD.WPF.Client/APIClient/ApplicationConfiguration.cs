@@ -9,6 +9,8 @@ namespace KD.WPF.Client.APIClient
         public string AppUri => "AppUri";
 
         public string ClientId => "ClientId";
+
+
       
     }
 }

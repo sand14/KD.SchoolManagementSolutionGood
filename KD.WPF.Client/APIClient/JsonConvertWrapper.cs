@@ -14,6 +14,8 @@ namespace KD.WPF.Client.APIClient
         /// <param name="value"></param>
         /// <param name="result"></param>
         /// <returns></returns>
+        ///
+        /// 
         public static bool TryDeserializeObject<T>(string value, out T result)
         {
             result = default(T);

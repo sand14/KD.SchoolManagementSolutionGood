@@ -1,7 +1,9 @@
 ﻿using KD.WPF.Client.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +14,7 @@ namespace KD.WPF.Client.APIClient.RestServices
     public class StudentRestService : RestServiceBase
     {
         public StudentRestService(IHttpClientFactory httpClientFactory, IClientApplicationConfiguration configuration) : base(httpClientFactory, configuration)
-        {
+        {           
         }
 
         public async Task<List<StudentModel>> GetAllStudentsAsync()
@@ -41,8 +43,20 @@ namespace KD.WPF.Client.APIClient.RestServices
         {
             using (HttpClient client = GetClient())
             {
-                var response = client.PostAsJsonAsync<StudentModel>(string.Format("{0}/api/Students", serverAddress), student).Result;
-                var payload = DeserializeObject<StudentModel>(response.Content.ReadAsStringAsync().Result);
+                client.BaseAddress = new Uri(serverAddress);
+                var query=new Dictionary<string, StudentModel>();
+               
+
+
+
+
+                var jsonquery = SerializeObject(student);
+
+                File.WriteAllTextAsync("TextFile1.txt", jsonquery);
+                var result = await client.PostAsJsonAsync("api/Students", student)
+                    .ContinueWith((postTask) => postTask.Result);
+               
+                var payload = DeserializeObject<StudentModel> (result.Content.ReadAsStringAsync().Result);
                 return payload;
             }
         }
